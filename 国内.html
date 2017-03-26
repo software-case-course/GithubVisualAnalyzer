@@ -1,0 +1,813 @@
+﻿<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>Github可视化系统</title>
+    <!-- 引入 echarts.js -->
+    <script src="js/echarts.min.js"></script>
+    <script src="js/china.js"></script>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumino - Charts</title>
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/datepicker3.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+<div class="adcenter"><script src="Lumino%20-%20Charts3_files/ca-pub-1542822386688301.js"></script><script src="Lumino%20-%20Charts3_files/ggad2_728x90.js"></script><link type="text/css" rel="stylesheet" href="Lumino%20-%20Charts3_files/astyle.css">
+<div align="center">
+<script async="" src="Lumino%20-%20Charts3_files/adsbygoogle.js"></script>
+<!-- cssmoban_728*90_show -->
+<ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1542822386688301" data-ad-slot="3852412413"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" height="90" width="728" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><span>Github</span>可视化</a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+							
+		</div><!-- /.container-fluid -->
+	</nav>
+		
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<form role="search">
+			<div class="form-group">
+				<input class="form-control" placeholder="Search" type="text">
+			</div>
+		</form>
+		<ul class="nav menu">
+			<li ><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> 首页</a></li>
+			<li class="parent ">
+				<a href="#">
+					<span class="glyphicon glyphicon-list"></span> 语言 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span> 
+				</a>
+				<ul class="children collapse" id="sub-item-1">
+					<li>
+						<a class="" href="#">
+							<li class="active"><a href="国内.html"><span class="glyphicon glyphicon-stats"></span> 国内</a></li>
+						</a>
+					</li>
+					<li>
+						<a class="" href="#">
+							<li><a href="全世界.html"><span class="glyphicon glyphicon-stats"></span> 全世界</a></li>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> 用户</a></li>
+			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> 项目（仓库）</a></li>
+			<li><a href="地域.html"><span class="glyphicon glyphicon-pencil"></span> 地域</a></li>
+			<li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> 我的</a></li>
+			<li class="parent ">
+				<a href="#">
+					<span class="glyphicon glyphicon-list"></span> 技术分类 <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span> 
+				</a>
+				<ul class="children collapse" id="sub-item-2">
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> 移动技术
+						</a>
+					</li>
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> 数据库
+						</a>
+					</li>
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> 可视化工具
+						</a>
+					</li>
+                                        <li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> 游戏引擎
+						</a>
+					</li>
+                                        <li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> web应用
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li role="presentation" class="divider"></li>
+			<li><a href="http://demo.cssmoban.com/cssthemes3/btst_5_medialoot/login.html"><span class="glyphicon glyphicon-user"></span> Login Page</a></li>
+		</ul>
+		<div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">地域</a></div>
+	</div><!--/.sidebar-->
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		<div class="row"> </div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">语言</h1>
+				
+			</div>
+		</div><!--/.row-->
+		
+		<div class="row">
+
+			<div class="col-lg-12">
+
+				<h2>国内</h2>
+
+			</div>
+
+			
+			<div class="col-md-6">
+
+				<div class="panel panel-white">
+
+					<div class="panel-heading dark-overlay">用户热衷语言</div>
+
+					<div class="panel-body">
+
+                                              <div class="canvas-wrapper">
+						<div id="main" style="width:500px;height:300px;"></div>
+    <script type="text/javascript">
+		
+        // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('main'));
+option = {
+    title: {
+        text: '热衷语言'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['Python','PHP','C','C++','Java']
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'Python',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'PHP',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'C',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'C++',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'Java',
+            type:'line',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top'
+                }
+            },
+            areaStyle: {normal: {}},
+            data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</div>
+</div>
+
+				</div>
+
+			</div><!--/.col-->
+
+			
+			<div class="col-md-6">
+
+				<div class="panel panel-white">
+
+					<div class="panel-heading dark-overlay">用户关注语言</div>
+
+					<div class="panel-body">
+
+                                          <div id="main1" style="width:500px;height:300px;"></div>
+    <script type="text/javascript">
+		
+        // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('main1'));
+option = {
+    title: {
+        text: '关注语言'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['Python','PHP','C','C++','Java']
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'Python',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'PHP',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'C',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'C++',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'Java',
+            type:'line',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top'
+                }
+            },
+            areaStyle: {normal: {}},
+            data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+						</div>
+
+				</div>
+
+			</div>
+<!--/.col-->
+
+			
+			<div class="col-md-6">
+
+				<div class="panel panel-white">
+
+					<div class="panel-heading dark-overlay">用户热衷语言</div>
+
+					<div class="panel-body">
+
+                                          <div id="main2" style="width:500px;height:300px;"></div>
+    <script type="text/javascript">
+		
+        // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('main2'));
+option = {
+    title : {
+        text: '用户热衷语言',
+
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['C','C++','PHP','Pyhon','Java']
+    },
+    series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+                {value:335, name:'C'},
+                {value:310, name:'C++'},
+                {value:234, name:'PHP'},
+                {value:135, name:'Python'},
+                {value:1548, name:'Java'}
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+						</div>
+
+				</div>
+
+			</div>
+<div class="col-md-6">
+
+				<div class="panel panel-white">
+
+					<div class="panel-heading dark-overlay">用户关注语言</div>
+
+					<div class="panel-body">
+
+                                          <div id="main3" style="width:500px;height:300px;"></div>
+    <script type="text/javascript">
+		
+        // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('main3'));
+option = {
+    backgroundColor: '#2c343c',
+
+    title: {
+        text: '用户关注语言',
+        left: 'center',
+        top: 20,
+        textStyle: {
+            color: '#ccc'
+        }
+    },
+
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+
+    visualMap: {
+        show: false,
+        min: 80,
+        max: 600,
+        inRange: {
+            colorLightness: [0, 1]
+        }
+    },
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '50%'],
+            data:[
+                {value:335, name:'C'},
+                {value:310, name:'C++'},
+                {value:274, name:'PHP'},
+                {value:235, name:'Python'},
+                {value:400, name:'Java'}
+            ].sort(function (a, b) { return a.value - b.value}),
+            roseType: 'angle',
+            label: {
+                normal: {
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    },
+                    smooth: 0.2,
+                    length: 10,
+                    length2: 20
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#c23531',
+                    shadowBlur: 200,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+
+            animationType: 'scale',
+            animationEasing: 'elasticOut',
+            animationDelay: function (idx) {
+                return Math.random() * 200;
+            }
+        }
+    ]
+};
+  myChart.setOption(option);
+    </script>
+						</div>
+
+				</div>
+
+			</div>
+<div class="row">
+			<div class="col-md-3">
+				<div class="panel panel-orange">
+					<div class="panel-heading">排行第一热衷语言Ruby</div>
+					<div class="panel-body">
+						<ul class="todo-list">
+						<li class="todo-list-item">
+								<div class="checkbox">
+									<label for="checkbox">1.github/choosealicense.com</label>
+								</div>
+								
+						  </li>
+						  <li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">2.github/graphql-client</label>
+								</div>
+								
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">3.github/elastomer-client</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">4.github/pages-health-check</label>
+								</div>
+				
+							</li>
+							
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+                    <div class="col-md-3">
+				<div class="panel panel-orange">
+					<div class="panel-heading">排行第一关注语言Ruby</div>
+					<div class="panel-body">
+						<ul class="todo-list">
+						<li class="todo-list-item">
+								<div class="checkbox">
+									<label for="checkbox">1.github/VisualStudio</label>
+								</div>
+								
+						  </li>
+						  <li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">2.github/objective-c-style-guide</label>
+								</div>
+								
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">3.github/ccql</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">4.github/government.github.com</label>
+								</div>
+				
+							</li>
+							
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+                     <div class="col-md-3">
+				<div class="panel panel-blue">
+					<div class="panel-heading">排行第二热衷语言C++</div>
+					<div class="panel-body">
+						<ul class="todo-list">
+						<li class="todo-list-item">
+								<div class="checkbox">
+									<label for="checkbox">1.opencv/opencv</label>
+								</div>
+								
+						  </li>
+						  <li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">2.Mooophy/Cpp-Primer</label>
+								</div>
+								
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">3.bitcoin/bitcoin</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">4.mapnik/mapnik</label>
+								</div>
+				
+							</li>
+							
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">5.nghttp2/nghttp2</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">6.llvm-mirror/clang</label>
+								</div>
+						
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+                     <div class="col-md-3">
+				<div class="panel panel-blue">
+					<div class="panel-heading">排行第二关注语言C++</div>
+					<div class="panel-body">
+						<ul class="todo-list">
+						<li class="todo-list-item">
+								<div class="checkbox">
+									<label for="checkbox">1.flutter/engine</label>
+								</div>
+								
+						  </li>
+						  <li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">2.danmar/cppcheck</label>
+								</div>
+								
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">3.electron/electron</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">4.danmar/cppcheck</label>
+								</div>
+				
+							</li>
+							
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">5.electronicarts/EASTL</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">6.USCiLab/cereal</label>
+								</div>
+						
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+                     <div class="col-md-3">
+				<div class="panel panel-red">
+					<div class="panel-heading">排行第三热衷语言Java</div>
+					<div class="panel-body">
+						<ul class="todo-list">
+						<li class="todo-list-item">
+								<div class="checkbox">
+									<label for="checkbox">1.google/j2objc</label>
+								</div>
+								
+						  </li>
+						  <li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">2.yusugomori/DeepLearning</label>
+								</div>
+								
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">3.bytedeco/javacpp</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">4.xamarin/XobotOS</label>
+								</div>
+				
+							</li>
+							
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">5.cgeo/cgeo</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">6.bytedeco/javacpp-presets</label>
+								</div>
+						
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+                     <div class="col-md-3">
+				<div class="panel panel-red">
+					<div class="panel-heading">排行第三关注语言Java</div>
+					<div class="panel-body">
+						<ul class="todo-list">
+						<li class="todo-list-item">
+								<div class="checkbox">
+									<label for="checkbox">1.jbox2d/jbox2d</label>
+								</div>
+								
+						  </li>
+						  <li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">2.kwhat/jnativehook</label>
+								</div>
+								
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">3.octo-technology/sonar-objective-c</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">4.scottyab/AESCrypt-Android</label>
+								</div>
+				
+							</li>
+							
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">5.octopus-platform/joern</label>
+								</div>
+							
+							</li>
+							<li class="todo-list-item">
+								<div class="checkbox">
+									
+									<label for="checkbox">6.cowtowncoder/java-uuid-generator</label>
+								</div>
+						
+							</li>
+						</ul>
+					</div>
+				</div>
+                     
+                </div>
+											
+
+	  
+
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/chart.min.js"></script>
+	<script src="js/chart-data.js"></script>
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script>
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
+		        $(this).find('em:first').toggleClass("glyphicon-minus");      
+		    }); 
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>	
+
+
+
+</body></html>
