@@ -1,6 +1,6 @@
-package util;
+package main.util;
 
-import constant.GlobalConstant;
+import main.constant.GlobalConstant;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,9 +17,10 @@ public class HttpUtil {
 
     public static String getJsonContent(String urlStr, Map<String, String> propMap) {
         URL url = null;
+        HttpURLConnection httpURLConn = null;
         try {
             url = new URL(urlStr);
-            HttpURLConnection httpURLConn = (HttpURLConnection)url.openConnection();
+            httpURLConn = (HttpURLConnection)url.openConnection();
 
             httpURLConn.setConnectTimeout(3000);
             httpURLConn.setDoInput(true);
@@ -28,7 +29,7 @@ public class HttpUtil {
                     httpURLConn.setRequestProperty(entry.getKey(), entry.getValue());
                 }
             }
-            httpURLConn.setRequestProperty("Authorization", "token " + GlobalConstant.ACCESS_TOKEN);
+            //httpURLConn.setRequestProperty("Authorization", "token " + GlobalConstant.ACCESS_TOKEN);
             httpURLConn.setRequestMethod("GET");
 
             int respCode = httpURLConn.getResponseCode();
@@ -39,6 +40,8 @@ public class HttpUtil {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            httpURLConn.disconnect();
         }
         return "";
     }

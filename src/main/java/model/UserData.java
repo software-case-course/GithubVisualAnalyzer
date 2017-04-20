@@ -1,4 +1,4 @@
-package model;
+package main.model;
 
 
 import java.util.Date;
@@ -11,7 +11,7 @@ public class UserData {
 
     @JSONField(name = "login")
     private String usrName;
-    private int id;
+    private long id;
     @JSONField(name = "avatar_url")
     private String avatarUrl;
     @JSONField(name = "gravatar_id")
@@ -60,10 +60,10 @@ public class UserData {
         return usrName;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
-    public int getId() {
+    public long getId() {
         return id;
     }
 

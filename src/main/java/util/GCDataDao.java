@@ -1,11 +1,13 @@
-package util;
+package main.util;
 
-import model.UserData;
-import model.UserListData;
+import main.model.UserData;
+import main.model.UserListData;
 import org.omg.CORBA.TIMEOUT;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SimpleTimeZone;
 import java.util.concurrent.SynchronousQueue;
 
@@ -33,6 +35,16 @@ public class GCDataDao {
         return conn;
     }
 
+    public static void close(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void close(Statement stmt, Connection conn) {
         if(stmt != null)
         {
@@ -42,14 +54,18 @@ public class GCDataDao {
                 e.printStackTrace();
             }
         }
-        if(conn != null)
-        {
+        close(conn);
+    }
+
+    public static void close(ResultSet rs, Statement stmt, Connection conn) {
+        if(rs != null) {
             try {
-                conn.close();
+                rs.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        close(stmt, conn);
     }
 
     public static void createTable() {
@@ -171,6 +187,57 @@ public class GCDataDao {
         } finally {
             close(stmt, conn);
         }
+    }
+
+
+    public static List<UserData> getUserData() {
+        Connection conn = getConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        List<UserData> userList= null;
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM USER_DATA";
+            rs = stmt.executeQuery(sql);
+            userList = new ArrayList<>();
+            while (rs.next()) {
+                UserData userData = new UserData();
+                userData.setUsrName(rs.getString("usrname"));
+                userData.setId(rs.getLong("id"));
+                userData.setAvatarUrl(rs.getString("avatar_url"));
+                userData.setGravatarId(rs.getString("gravatar_id"));
+                userData.setUrl(rs.getString("url"));
+                userData.setHtmlUrl(rs.getString("html_url"));
+                userData.setFollowersUrl(rs.getString("followers_url"));
+                userData.setFollowingUrl(rs.getString("following_url"));
+                userData.setGistsUrl(rs.getString("gists_url"));
+                userData.setStarredUrl(rs.getString("starred_url"));
+                userData.setSubscriptionsUrl(rs.getString("subscriptions_url"));
+                userData.setOrganizationsUrl(rs.getString("organizations_url"));
+                userData.setReposUrl(rs.getString("repos_url"));
+                userData.setType(rs.getString("type"));
+                userData.setSiteAdmin(rs.getBoolean("site_admin"));
+                userData.setName(rs.getString("name"));
+                userData.setCompany(rs.getString("company"));
+                userData.setBlog(rs.getString("blog"));
+                userData.setLocation(rs.getString("location"));
+                userData.setEmail(rs.getString("email"));
+                userData.setHireable(rs.getBoolean("hireable"));
+                userData.setBio(rs.getString("bio"));
+                userData.setPublicRepos(rs.getInt("public_repos"));
+                userData.setPublicGists(rs.getInt("public_gists"));
+                userData.setFollowers(rs.getInt("followers"));
+                userData.setFollowing(rs.getInt("following"));
+                userData.setCreatedAt(rs.getTimestamp("created_at"));
+                userData.setUpdatedAt(rs.getTimestamp("updated_at"));
+                userList.add(userData);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rs, stmt, conn);
+        }
+        return userList;
     }
 
 }
