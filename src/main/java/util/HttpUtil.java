@@ -1,6 +1,4 @@
-package main.util;
-
-import main.constant.GlobalConstant;
+package main.java.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -11,11 +9,10 @@ import java.net.URL;
 import java.util.Map;
 
 /**
- * Created by donne on 17-3-13.
+ * Created by donne on 17-5-10.
  */
 public class HttpUtil {
-
-    public static String getJsonContent(String urlStr, Map<String, String> propMap) {
+    public static String getJsonContent(String urlStr, String method, Map<String, String> propMap) {
         URL url = null;
         HttpURLConnection httpURLConn = null;
         try {
@@ -29,8 +26,7 @@ public class HttpUtil {
                     httpURLConn.setRequestProperty(entry.getKey(), entry.getValue());
                 }
             }
-            //httpURLConn.setRequestProperty("Authorization", "token " + GlobalConstant.ACCESS_TOKEN);
-            httpURLConn.setRequestMethod("GET");
+            httpURLConn.setRequestMethod(method);
 
             int respCode = httpURLConn.getResponseCode();
             if (respCode == 200) {

@@ -1,6 +1,5 @@
-/.idea
-*.iml
-/src/main/constant/
+out/
+.idea/
 
 # Compiled class file
 *.class
