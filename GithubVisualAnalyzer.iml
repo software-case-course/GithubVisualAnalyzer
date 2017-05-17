@@ -26,5 +26,12 @@
     <orderEntry type="library" name="jackson-2.6" level="project" />
     <orderEntry type="library" name="com.alibaba" level="project" />
     <orderEntry type="library" name="jstl" level="project" />
+    <orderEntry type="library" name="github-api-1.85" level="project" />
+    <orderEntry type="library" name="jcabi" level="project" />
+    <orderEntry type="library" name="pinyin4j-2.5.0" level="project" />
+    <orderEntry type="library" name="com.infradna.tool:bridge-method-annotation:1.17" level="project" />
+    <orderEntry type="library" name="commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="commons-io:commons-io:2.5" level="project" />
+    <orderEntry type="library" name="commons-lang:commons-lang:2.6" level="project" />
   </component>
 </module>
