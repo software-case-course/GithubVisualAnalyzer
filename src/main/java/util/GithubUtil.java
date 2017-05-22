@@ -1,10 +1,9 @@
 package main.java.util;
 
 import main.java.model.Language;
-import org.kohsuke.github.GHDirection;
-import org.kohsuke.github.GHUser;
-import org.kohsuke.github.GHUserSearchBuilder;
-import org.kohsuke.github.GitHub;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.kohsuke.github.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 
 
 public class GithubUtil {
-
+    private static Log logger = LogFactory.getLog(GithubUtil.class);
     public static String ApiIndex = "https://api.github.com";
     private static GitHub gitHub;
 
@@ -61,10 +60,26 @@ public class GithubUtil {
     public static Map<String, Object> getUserSearchMap(Map<String, String> searchMap, int count) {
 
         GHUserSearchBuilder ghUSBuilder = getUserSearch(searchMap);
-        List<GHUser> ghUserList = ghUSBuilder.list().asList()
-                .stream().limit(count).collect(Collectors.toList());
+        List<Map<String, Object>> ghUserList = new ArrayList<>();
+        int i = count;
+        for (GHUser ghUser : ghUSBuilder.list()) {
+            Map<String, Object> userMap = new LinkedHashMap<>();
+            userMap.put("login", ghUser.getLogin());
+            userMap.put("id", ghUser.getId());
+            userMap.put("avatar_url", ghUser.getAvatarUrl());
+            userMap.put("url", ghUser.getUrl());
+            userMap.put("html_url", ghUser.getHtmlUrl());
+            try {
+                userMap.put("followers_count", ghUser.getFollowersCount());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ghUserList.add(userMap);
+            if(i -- <= 0)
+                break;
+        }
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new LinkedHashMap<>();
         map.put("count", count);
         map.put("total_count", ghUSBuilder.list().getTotalCount());
         map.put("item", ghUserList);
@@ -108,17 +123,18 @@ public class GithubUtil {
         return ghUSBuilder;
     }
 
-    public static int getUserLangNum(Language lang, String unit, int age) {
+    public static GHUserSearchBuilder getUserLangNum(Language lang, String unit, int age) {
 
-        String joined = ">";
+        logger.info("getUserLangNum0 called");
+        String joined = null;
         String today = DateUtil.getToday();
         try {
             switch (unit) {
                 case "year":
-                    joined += DateUtil.addYear(today, 0 - age);
+                    joined = DateUtil.addYear(today, 0 - age) + ".." + DateUtil.addYear(today, 1 - age);
                     break;
                 case "month":
-                    joined += DateUtil.addMonth(today, 0 - age);
+                    joined = DateUtil.addMonth(today, 0 - age) + ".." + DateUtil.addMonth(today, 1 - age);
                     break;
                 default:
                     joined = null;
@@ -127,12 +143,15 @@ public class GithubUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        logger.info(joined);
+
         if(lang != Language.ALL)
             return gitHub.searchUsers()
                     .language(lang.toString())
-                    .created(joined).list().getTotalCount();
+                    .created(joined);
         else return gitHub.searchUsers()
-                .created(joined).list().getTotalCount();
+                .created(joined);
     }
 
     public static int getUserLocationNum(String type, String location) {
@@ -141,6 +160,10 @@ public class GithubUtil {
                 .location(location)
                 .list().getTotalCount();
 
+    }
+
+    public static String getAvatarUrl(String login) throws IOException {
+        return gitHub.getUser(login).getAvatarUrl();
     }
 
 }

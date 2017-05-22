@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    private static String defaultDatePattern = "yyyy-MM-dd ";
+    private static String defaultDatePattern = "yyyy-MM-dd";
 
     /**
      * 获得默认的 date pattern
@@ -42,7 +42,7 @@ public class DateUtil {
      */
     public static String format(Date date)
     {
-        return date == null ? " " : format(date, getDatePattern());
+        return date == null ? "" : format(date, getDatePattern());
     }
 
     /**
@@ -50,7 +50,7 @@ public class DateUtil {
      */
     public static String format(Date date, String pattern)
     {
-        return date == null ? " " : new SimpleDateFormat(pattern).format(date);
+        return date == null ? "" : new SimpleDateFormat(pattern).format(date);
     }
 
     /**
