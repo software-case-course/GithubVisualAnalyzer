@@ -52,85 +52,82 @@ public class StorageController {
     @ResponseBody
     public String saveUserYear() {
 
-        for (Language language : Language.values()) {
-            for (List<String> location : locationFilters) {
-                UserSearchItem userSearchItem = new UserSearchItem("user");
+        for (List<String> location : locationFilters) {
+            UserSearchItem userSearchItem = new UserSearchItem();
 
-                //数据请求MAP
-                Map<String, String> map = new LinkedHashMap<>();
+            //数据请求MAP
+            Map<String, String> map = new LinkedHashMap<>();
 
-                userSearchItem.setCreated("all");
-                userSearchItem.setFollowers("all");
-                userSearchItem.setLanguage(language);
-                userSearchItem.setRepos(">=1");
-                userSearchItem.setLocation(location.get(1));
-                userSearchItem.setSearchCreated(DateUtil.format(new Date(),"yyyy-MM-dd"));
+            userSearchItem.setCreated("all");
+            userSearchItem.setFollowers("all");
+            userSearchItem.setLanguage(Language.ALL);
+            userSearchItem.setRepos(">=1");
+            userSearchItem.setLocation(location.get(1));
+            userSearchItem.setSearchCreated(DateUtil.format(new Date(),"yyyy-MM-dd"));
 
-                //添加参数
-                if(! "All".equals(language.toString())) map.put("language", language.toString());
-                if(! "All".equals(location.get(1))) {
-                    StringBuilder locationList = new StringBuilder();
-                    for (String loc : location) {
-                        locationList.append(loc).append(" ");
-                    }
-                    locationList = new StringBuilder(locationList.substring(0, locationList.length() - 1));
-                    map.put("location", locationList.toString());
+            //添加参数
+            if(! "All".equals(location.get(1))) {
+                StringBuilder locationList = new StringBuilder();
+                for (String loc : location) {
+                    locationList.append(loc).append(" ");
                 }
-
-                String json = GithubAPI.getSearch(map, "followers", "users", 10);
-                JSONObject jsonObject = JSON.parseObject(json);
-                userSearchItem.setTotalCount((Integer) jsonObject.get("total_count"));
-                JSONArray jsonArray = (JSONArray) jsonObject.get("items");
-                List<User> userList = new ArrayList<>();
-                for (int i = 0; i < jsonArray.size(); i ++) {
-                    String userStr = GithubAPI.getData(jsonArray.getJSONObject(i).get("url").toString());
-                    userList.add(JSON.parseObject(userStr, User.class));
-                }
-                userSearchItem.setNodes(userList);
-
-                userSearchItemService.upsert(userSearchItem);
-
-                logger.info(language.toString() + " all all >=1 " + location.get(1) + " done" );
+                locationList = new StringBuilder(locationList.substring(0, locationList.length() - 1));
+                map.put("location", locationList.toString());
             }
+            map.put("repos", ">=1");
+
+            String json = GithubAPI.getSearch(map, "followers", "users", 5);
+            JSONObject jsonObject = JSON.parseObject(json);
+            userSearchItem.setTotalCount((Integer) jsonObject.get("total_count"));
+            JSONArray jsonArray = (JSONArray) jsonObject.get("items");
+            List<User> userList = new ArrayList<>();
+            for (int i = 0; i < jsonArray.size(); i ++) {
+                String userStr = GithubAPI.getData(jsonArray.getJSONObject(i).get("url").toString());
+                userList.add(JSON.parseObject(userStr, User.class));
+            }
+            userSearchItem.setNodes(userList);
+
+            userSearchItemService.upsert(userSearchItem);
+
+            logger.info( "All all all >=1 " + location.get(1) + " done" );
         }
 
         for(Language language : Language.values()) {
             for (String created : createdFilters) {
                 for (String followers : followersFilters) {
                     for (String repos : reposFilters) {
-                        for (List<String> location: locationFilters) {
-                            UserSearchItem userSearchItem = new UserSearchItem("user");
+                        UserSearchItem userSearchItem = new UserSearchItem();
 
-                            //数据请求MAP
-                            Map<String, String> map = new LinkedHashMap<>();
+                        //数据请求MAP
+                        Map<String, String> map = new LinkedHashMap<>();
 
-                            userSearchItem.setCreated(created);
-                            userSearchItem.setFollowers(followers);
-                            userSearchItem.setLanguage(language);
-                            userSearchItem.setRepos(repos);
-                            userSearchItem.setSearchCreated(DateUtil.format(new Date(),"yyyy-MM-dd"));
+                        userSearchItem.setCreated(created);
+                        userSearchItem.setFollowers(followers);
+                        userSearchItem.setLanguage(language);
+                        userSearchItem.setRepos(repos);
+                        userSearchItem.setLocation("All");
+                        userSearchItem.setSearchCreated(DateUtil.format(new Date(),"yyyy-MM-dd"));
 
-                            //添加参数
-                            if(! "all".equals(created)) map.put("created", created);
-                            if(! "all".equals(followers)) map.put("followers", followers);
-                            if(! "All".equals(language.toString())) map.put("language", language.toString());
-                            map.put("repos", repos);
+                        //添加参数
+                        if(! "all".equals(created)) map.put("created", created);
+                        if(! "all".equals(followers)) map.put("followers", followers);
+                        if(! "All".equals(language.toString())) map.put("language", language.toString());
+                        map.put("repos", repos);
 
-                            String json = GithubAPI.getSearch(map, "followers", "users", 10);
-                            JSONObject jsonObject = JSON.parseObject(json);
-                            userSearchItem.setTotalCount((Integer) jsonObject.get("total_count"));
-                            JSONArray jsonArray = (JSONArray) jsonObject.get("items");
-                            List<User> userList = new ArrayList<>();
-                            for (int i = 0; i < jsonArray.size(); i ++) {
-                                String userStr = GithubAPI.getData(jsonArray.getJSONObject(i).get("url").toString());
-                                userList.add(JSON.parseObject(userStr, User.class));
-                            }
-                            userSearchItem.setNodes(userList);
-
-                            userSearchItemService.upsert(userSearchItem);
-
-                            logger.info(language.toString() + " " + created + " " + followers + " " + repos + " done" );
+                        String json = GithubAPI.getSearch(map, "followers", "users", 5);
+                        JSONObject jsonObject = JSON.parseObject(json);
+                        userSearchItem.setTotalCount((Integer) jsonObject.get("total_count"));
+                        JSONArray jsonArray = (JSONArray) jsonObject.get("items");
+                        List<User> userList = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.size(); i ++) {
+                            String userStr = GithubAPI.getData(jsonArray.getJSONObject(i).get("url").toString());
+                            userList.add(JSON.parseObject(userStr, User.class));
                         }
+                        userSearchItem.setNodes(userList);
+
+                        userSearchItemService.upsert(userSearchItem);
+
+                        logger.info(language.toString() + " " + created + " " + followers + " " + repos + " done" );
                     }
                 }
             }
@@ -152,10 +149,12 @@ public class StorageController {
                         reposSearchItem.setStars(star);
                         reposSearchItem.setLanguage(language);
                         reposSearchItem.setForks(fork);
+                        reposSearchItem.setPushed("all");
+                        reposSearchItem.setTopic("all");
                         reposSearchItem.setSearchCreated(DateUtil.format(new Date(), "yyyy-MM-dd HH-mm-ss"));
 
                         if(! "all".equals(created)) map.put("created", created);
-                        if(! "all".equals(star)) map.put("stars", star);
+                        map.put("stars", star);
                         if(! "All".equals(language.toString())) map.put("language", language.toString());
                         if(! "all".equals(fork)) map.put("forks", fork);
 

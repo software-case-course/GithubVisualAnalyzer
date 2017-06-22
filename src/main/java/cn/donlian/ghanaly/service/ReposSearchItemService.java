@@ -38,6 +38,7 @@ public class ReposSearchItemService {
         return reposSearchItemDao.findByLanguageAndCreated(lang, created);
     }
 
+
     public int upsert(ReposSearchItem reposSearchItem) {
         return reposSearchItemDao.upsert(reposSearchItem);
     }
